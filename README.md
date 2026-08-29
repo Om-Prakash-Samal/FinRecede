@@ -75,8 +75,8 @@ FinRecede is a single Next.js application with a stateful agent core, a JSON-bac
 │                 AGENT CORE — STATE MACHINE LIFECYCLE                     │
 │                                                                          │
 │   1. DETECT  ──►  2. DIAGNOSE  ──►  3. INTERVENE  ──►  4. RESOLVE        │
-│   multi-channel    AI log parser    bounded recovery   💰 recovered      │
-│   ingestion         + confidence     action loops       🛑 escalated     │
+│   multi-channel    AI log parser    bounded recovery    recovered      │
+│   ingestion         + confidence     action loops        escalated     │
 └──────────────────────────────┬───────────────────────────────────────────┘
                                 │
                  ┌──────────────┴──────────────┐
@@ -98,16 +98,16 @@ FinRecede is a single Next.js application with a stateful agent core, a JSON-bac
 [ Revenue risk event ]
         │
         ▼
-🔍 DETECT     — flags the transaction, locks metadata, prices the amount at risk
+ DETECT     — flags the transaction, locks metadata, prices the amount at risk
         │
         ▼
-🧠 DIAGNOSE   — parses raw gateway logs & error codes, classifies root cause
+ DIAGNOSE   — parses raw gateway logs & error codes, classifies root cause
         │            with a confidence score
         ▼
-⚡ INTERVENE  — runs the recovery strategy matrix for that root cause,
+ INTERVENE  — runs the recovery strategy matrix for that root cause,
         │            inside a hard-bounded retry/outreach ceiling
         ▼
-🏁 RESOLVE    — 💰 salvaged & reconciled, or 🛑 compliant escalation to a human
+ RESOLVE    —  salvaged & reconciled, or  compliant escalation to a human
 ```
 
 Worked example — a ₹4,999 subscription charge that fails on insufficient funds:
