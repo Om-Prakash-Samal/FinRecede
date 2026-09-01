@@ -5,6 +5,11 @@ export const metadata = {
   title: 'FinRecede — Autonomous Revenue Recovery Agent',
   description: 'AI-driven revenue recovery agent that detects, diagnoses, and recovers revenue from payment failures, checkout abandonment, subscription failures, and overdue invoices.',
   keywords: 'fintech, revenue recovery, AI agent, payment failure, subscription, invoices',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -11,6 +11,8 @@ import {
   Layers
 } from 'lucide-react';
 
+import Image from 'next/image';
+
 const NAV_ITEMS = [
   { name: 'Executive Overview', href: '/', icon: LayoutDashboard },
   { name: 'Root Cause Diagnostics', href: '/diagnostics', icon: Stethoscope },
@@ -39,21 +41,32 @@ export default function Sidebar() {
     }}>
       {/* Brand Logo */}
       <div style={{ padding: '0 8px 24px 8px', borderBottom: '1px solid var(--border-subtle)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{
-            width: '36px',
-            height: '36px',
+            width: '40px',
+            height: '40px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, var(--gold-dark), var(--gold))',
+            overflow: 'hidden',
+            background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: 'var(--shadow-gold)',
+            boxShadow: '0 0 16px rgba(59, 130, 246, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            flexShrink: 0,
+            padding: '2px',
           }}>
-            <Activity size={20} color="#0a0e1a" strokeWidth={2.5} />
+            <Image
+              src="/logo.png"
+              alt="FinRecede Logo"
+              width={36}
+              height={36}
+              style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+              priority
+            />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.15rem', letterSpacing: '-0.02em', color: '#fff' }}>
+            <div style={{ fontWeight: 800, fontSize: '1.18rem', letterSpacing: '-0.02em', color: '#fff' }}>
               Fin<span style={{ color: 'var(--gold)' }}>Recede</span>
             </div>
             <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>

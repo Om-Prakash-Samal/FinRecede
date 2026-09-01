@@ -9,7 +9,8 @@ import {
   Layers, 
   BarChart3, 
   PieChart as PieIcon,
-  RefreshCw
+  RefreshCw,
+  Trash2
 } from 'lucide-react';
 import KPICard from '@/components/KPICard';
 import BatchController from '@/components/BatchController';
@@ -21,6 +22,7 @@ export default function DashboardPage() {
   const [data, setData] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [resetting, setResetting] = useState(false);
 
   const fetchDashboardData = async () => {
     try {
@@ -38,6 +40,19 @@ export default function DashboardPage() {
       console.error('Failed to load dashboard data:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleReset = async () => {
+    if (!confirm('Are you sure you want to clear all historical batches and start fresh?')) return;
+    try {
+      setResetting(true);
+      await fetch('/api/reset', { method: 'POST' });
+      await fetchDashboardData();
+    } catch (err) {
+      console.error('Reset error:', err);
+    } finally {
+      setResetting(false);
     }
   };
 
@@ -93,15 +108,27 @@ export default function DashboardPage() {
   return (
     <div>
       {/* Header */}
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <h1>FinRecede — Executive Recovery Command</h1>
           <p>Real-time autonomous revenue recovery across payment failures, checkout drop-offs, subscriptions & B2B invoices</p>
         </div>
-        <button className="btn btn-secondary btn-sm" onClick={fetchDashboardData} disabled={loading}>
-          <RefreshCw size={14} className={loading ? 'spin-icon' : ''} style={loading ? { animation: 'spin 1s linear infinite' } : {}} />
-          <span>Refresh</span>
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button 
+            className="btn btn-secondary btn-sm" 
+            onClick={handleReset} 
+            disabled={resetting}
+            title="Clear all transactions and reset data"
+            style={{ color: 'var(--danger)', borderColor: 'var(--danger-border)' }}
+          >
+            <Trash2 size={14} />
+            <span>{resetting ? 'Resetting...' : 'Clear Data'}</span>
+          </button>
+          <button className="btn btn-secondary btn-sm" onClick={fetchDashboardData} disabled={loading}>
+            <RefreshCw size={14} className={loading ? 'spin-icon' : ''} style={loading ? { animation: 'spin 1s linear infinite' } : {}} />
+            <span>Refresh</span>
+          </button>
+        </div>
       </div>
 
       {/* Batch Trigger Controller */}
