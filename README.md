@@ -59,15 +59,15 @@ Built end-to-end for the **-AI Revenue Recovery** track.
 FinRecede is a single Next.js application with a stateful agent core, a JSON-backed persistence layer, and a real-time streaming API — no external services required to run it end-to-end.
 
 ```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                        PRESENTATION LAYER (Next.js 15)                   │
-│                                                                          │
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        PRESENTATION LAYER (Next.js 15)                  │
+│                                                                         │
 │   Executive Command    │   Diagnostics & Logs   │   Compliance Ledger   │
 │   • Sankey recovery    │   • Root-cause matrix  │   • Immutable audit   │
 │     funnel (Plotly)    │   • Manual override    │     trail             │
 │   • 4 live KPIs        │     (pause / resume)   │   • Stopping-rule &   │
 │   • SSE batch control  │                        │     fraud-flag log    │
-└──────────────────────────────┬───────────────────────────────────────────┘
+└────────────────────────────── ┬─────────────────────────────────────────┘
                                 │
                                 ▼
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -76,20 +76,20 @@ FinRecede is a single Next.js application with a stateful agent core, a JSON-bac
 │   GET  /api/dashboard        GET  /api/transactions    GET /api/audit    │
 │   POST /api/batch            PATCH /api/transactions                     │
 │   GET  /api/batch/stream  ── Server-Sent Events (live batch telemetry)   │
-└──────────────────────────────┬───────────────────────────────────────────┘
+└────────────────────────────── ┬──────────────────────────────────────────┘
                                 │
                                 ▼
-┌──────────────────────────────────────────────────────────────────────────┐
-│                 AGENT CORE — STATE MACHINE LIFECYCLE                     │
-│                                                                          │
-│   1. DETECT  ──►  2. DIAGNOSE  ──►  3. INTERVENE  ──►  4. RESOLVE        │
+┌────────────────────────────────────────────────────────────────────────┐
+│                 AGENT CORE — STATE MACHINE LIFECYCLE                   │
+│                                                                        │
+│   1. DETECT  ──►  2. DIAGNOSE  ──►  3. INTERVENE  ──►  4. RESOLVE      │
 │   multi-channel    AI log parser    bounded recovery    recovered      │
 │   ingestion         + confidence     action loops        escalated     │
-└──────────────────────────────┬───────────────────────────────────────────┘
+└────────────────────────────── ┬────────────────────────────────────────┘
                                 │
                  ┌──────────────┴──────────────┐
                  ▼                             ▼
-┌────────────────────────────────┐  ┌────────────────────────────────────┐
+┌──────────────────────────────── ┐  ┌────────────────────────────────────┐
 │   ACTION & WORKFLOW EXECUTORS   │  │      PERSISTENT LEDGER (JSON)      │
 │                                 │  │                                    │
 │  • Auto-retry gateway sequencer │  │  transactions   — one row per      │
@@ -97,7 +97,7 @@ FinRecede is a single Next.js application with a stateful agent core, a JSON-bac
 │  • Alternate-rail switcher      │  │  agent_actions  — immutable audit  │
 │  • B2B invoice chaser (3-stage) │  │                   log, FK'd to txn │
 │  • Promise-to-pay tracker       │  │  batch_runs     — run telemetry    │
-└────────────────────────────────┘  └────────────────────────────────────┘
+└──────────────────────────────── ┘  └────────────────────────────────────┘
 ```
 
 ### The closed loop, one event at a time
@@ -213,38 +213,38 @@ finrecede/
 ## Data Model
 
 ```
-┌────────────────────────────────────────────┐
+┌─────────────────────────────────────────── ─┐
 │                TRANSACTIONS                 │
-├──────────────────────────────────────────────┤
-│ id                            PK             │
-│ type          payment_failure │ checkout │   │
+├─────────────────────────────────────────────┤
+│ id                            PK            │
+│ type          payment_failure │ checkout │  │
 │               subscription │ invoice        │
-│ amount, currency                             │
-│ status        detected → diagnosed →         │
-│               in_recovery → recovered /       │
-│               escalated                       │
-│ ai_diagnosis, ai_diagnosis_category           │
-│ recovery_method, recovery_attempts            │
-│ amount_recovered                              │
-│ stopping_rule_triggered                       │
-│ promise_to_pay_date, promise_to_pay_status    │
-└───────────────────┬────────────────────────────┘
+│ amount, currency                            │
+│ status        detected → diagnosed →        │
+│               in_recovery → recovered /     │
+│               escalated                     │
+│ ai_diagnosis, ai_diagnosis_category         │
+│ recovery_method, recovery_attempts          │
+│ amount_recovered                            │
+│ stopping_rule_triggered                     │
+│ promise_to_pay_date, promise_to_pay_status  │
+└───────────────────┬─────────────────────────┘
                     │ 1 : N
                     ▼
 ┌──────────────────────────────────────────────┐
-│                AGENT_ACTIONS                  │
+│                AGENT_ACTIONS                 │
 ├──────────────────────────────────────────────┤
-│ id                             PK             │
-│ transaction_id                 FK             │
-│ action_type     detect · diagnose · retry ·   │
-│                 send_sms · escalate · …       │
-│ action_detail                                 │
-│ decision_reasoning            (AI rationale)  │
-│ previous_state → new_state                    │
-│ financial_impact              (₹ recovered)   │
-│ compliance_flag  stopping_rule · fraud_flag · │
-│                  escalated                     │
-│ created_at                                     │
+│ id                             PK            │
+│ transaction_id                 FK            │
+│ action_type     detect · diagnose · retry ·  │
+│                 send_sms · escalate · …      │
+│ action_detail                                │
+│ decision_reasoning            (AI rationale) │
+│ previous_state → new_state                   │
+│ financial_impact              (₹ recovered)  │
+│ compliance_flag  stopping_rule · fraud_flag ·│
+│                  escalated                   │
+│ created_at                                   │
 └──────────────────────────────────────────────┘
 ```
 
