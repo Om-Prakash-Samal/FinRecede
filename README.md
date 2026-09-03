@@ -10,6 +10,8 @@
 [![Status](https://img.shields.io/badge/state%20machine-v2.4-orange)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
+## Access the website: https://finrecede.vercel.app/
+
 
 [Overview](#overview) • [Architecture](#architecture) • [Screens](#screens) • [Getting Started](#getting-started) • [API](#api-reference) • [Compliance Engine](#compliance--stopping-rules) • [Results](#measured-results)
 
