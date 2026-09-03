@@ -277,7 +277,7 @@ High-value cases that exhaust their retry budget are **escalated to a human**, n
 
 **Executive Recovery Command**
 Live KPIs (revenue at risk, recovered, success rate, latency), a Sankey recovery funnel, and a one-click synthetic batch trigger with an SSE-powered live feed.
-
+ 
 </td>
 <td width="50%">
 
