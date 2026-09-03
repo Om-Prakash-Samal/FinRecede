@@ -12,6 +12,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 ## Access the website: https://finrecede.vercel.app/
+
 <img width="959" height="412" alt="image" src="https://github.com/user-attachments/assets/516e7417-b408-4cc2-82a3-edcdd94928b5" />
 
 
